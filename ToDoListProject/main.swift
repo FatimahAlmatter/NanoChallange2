@@ -11,6 +11,7 @@ import Foundation
 var userChoice : String?
 var taskList = [String]()
 
+
 class Operation {
     func viewAllTasks(){
         if taskList.isEmpty {
@@ -23,7 +24,7 @@ class Operation {
         }
     }
     
-    
+
     func addTask(){
         print("-------- Add New Task --------")
         print("Enter your task name:")
