@@ -9,52 +9,14 @@ import Foundation
 
 // create a new list to store tasks
 var userChoice : String?
-var taskList = [String]()
+var taskList : [Task] = []
 
-
-class Operation {
-    func viewAllTasks(){
-        if taskList.isEmpty {
-            print("** Your list is empty **")
-        } else {
-            print("--------- To-Do List ---------")
-            for (index, task) in taskList.enumerated() {
-                print(String(index+1) + ":" + task)
-            }
-        }
-    }
-    
-
-    func addTask(){
-        print("-------- Add New Task --------")
-        print("Enter your task name:")
-        if let taskName = readLine(){
-            taskList.append(taskName)
-            print("\n** New task is added to the list **\n")
-        }
-    }
-    
-    
-    func DeleteTask(){
-        viewAllTasks()
-        print("-----------------------------")
-        print("which task do you want to DELETE ?")
-        if let choice = readLine() {
-            if let userValue = Int(choice) {
-                taskList.remove(at: userValue - 1)
-            }
-            print("\n** Task successfully deleted **\n")
-        }
-    }
-    
-    
+struct Task {
+    var taskName : String
+    var taskDate : String
 }
 
 
-
-
-//create object of class
-var functions = Operation()
 
 repeat{
     print("-------- MENU --------")
@@ -69,11 +31,11 @@ repeat{
     
     switch userChoice {
     case "1" :
-        functions.viewAllTasks()
+        viewAllTasks()
     case "2" :
-        functions.addTask()
+        addTask()
     case "3" :
-        functions.DeleteTask()
+        DeleteTask()
     case "0" :
         exit(0)
     default:
@@ -84,3 +46,40 @@ repeat{
 
 
 
+func viewAllTasks(){
+    if taskList.isEmpty {
+        print("** Your list is empty **")
+    } else {
+        print("--------- To-Do List ---------")
+        for (index, task) in taskList.enumerated() {
+            print(String(index+1) + ":" + task.taskName + "," + task.taskDate)
+        }
+    }
+}
+
+
+func addTask(){
+    print("-------- Add New Task --------")
+    print("Enter task name:")
+    if let taskName = readLine(){
+        print("Enter task date:")
+        if let taskDate = readLine(){
+            let task = Task(taskName: taskName, taskDate: taskDate)
+            taskList.append(task)
+            print("\n** New task is added to the list **\n")
+        }
+    }
+}
+
+
+func DeleteTask(){
+    viewAllTasks()
+    print("-----------------------------")
+    print("which task do you want to DELETE ?")
+    if let choice = readLine() {
+        if let userValue = Int(choice) {
+            taskList.remove(at: userValue - 1)
+        }
+        print("\n** Task successfully deleted **\n")
+    }
+}
